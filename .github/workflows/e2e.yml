@@ -30,3 +30,38 @@ jobs:
         with:
           name: cypress-results
           path: cypress/screenshots/
+
+  send-report:
+    needs: cypress-run
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: 📥 Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 📤 Download screenshots
+        uses: actions/download-artifact@v4
+        with:
+          name: cypress-results
+          path: cypress/screenshots
+
+      - name: ✉️ Send Email Report via SendGrid
+        uses: peter-evans/sendgrid-action@v1
+        with:
+          sendgrid-api-key: ${{ secrets.SENDGRID_API_KEY }}
+          to: reddy.ntie.prestataire@rmcbfm.com
+          from: "Freewheel E2E Reports <noreply@freewheel.com>"
+          subject: "🧪 Rapport des tests E2E - Freewheel"
+          body: |
+            Bonjour,
+
+            Voici le rapport quotidien des tests E2E pour Freewheel.
+
+            ✅ Résultat : ${{ needs.cypress-run.result }}
+
+            Vous trouverez les captures d'écran en pièce jointe si nécessaire.
+
+            Cordialement,  
+            CI/CD GitHub Actions
+          attachments: |
+            cypress/screenshots
