@@ -8,7 +8,6 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-
     steps:
       - name: 📦 Checkout repo
         uses: actions/checkout@v4
@@ -31,7 +30,7 @@ jobs:
           name: cypress-results
           path: cypress/screenshots/
 
-    send-report:
+  send-report:
     needs: cypress-run
     runs-on: ubuntu-latest
     if: always()
@@ -63,4 +62,3 @@ jobs:
             Cordialement,  
             Votre pipeline GitHub
           attachments: cypress/screenshots/dashboard-apres-connexion.png
-
