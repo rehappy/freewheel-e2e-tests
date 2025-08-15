@@ -31,7 +31,7 @@ jobs:
           name: cypress-results
           path: cypress/screenshots/
 
-  send-report:
+    send-report:
     needs: cypress-run
     runs-on: ubuntu-latest
     if: always()
@@ -45,23 +45,22 @@ jobs:
           name: cypress-results
           path: cypress/screenshots
 
-      - name: ✉️ Send Email Report via SendGrid
-        uses: peter-evans/sendgrid-action@v1
+      - name: ✉️ Send Email Report with SendGrid
+        uses: dawidd6/action-send-mail@v3
         with:
-          sendgrid-api-key: ${{ secrets.SENDGRID_API_KEY }}
+          server_address: smtp.sendgrid.net
+          server_port: 587
+          username: apikey
+          password: ${{ secrets.SENDGRID_API_KEY }}
+          subject: "🧪 Rapport de tests E2E - FreeWheel"
           to: reddy.ntie.prestataire@rmcbfm.com
-          from: "Freewheel E2E Reports <noreply@freewheel.com>"
-          subject: "🧪 Rapport des tests E2E - Freewheel"
+          from: Freewheel Automation <automated-tests@freewheel.local>
           body: |
             Bonjour,
 
-            Voici le rapport quotidien des tests E2E pour Freewheel.
-
-            ✅ Résultat : ${{ needs.cypress-run.result }}
-
-            Vous trouverez les captures d'écran en pièce jointe si nécessaire.
+            Voici le rapport quotidien des tests E2E exécutés via GitHub Actions.
 
             Cordialement,  
-            CI/CD GitHub Actions
-          attachments: |
-            cypress/screenshots
+            Votre pipeline GitHub
+          attachments: cypress/screenshots/dashboard-apres-connexion.png
+
