@@ -2,7 +2,7 @@ name: Run Cypress E2E tests
 
 on:
   schedule:
-    - cron: '30 16 * * *'  # Tous les jours à 16h30 UTC (→ 18h30 Paris l'été, 17h30 l'hiver)
+    - cron: '30 7 * * *'  # Tous les jours à 9h30 heure de Paris (→ 7h30 UTC)
   workflow_dispatch:        # Permet de lancer manuellement le test depuis GitHub
 
 jobs:
