@@ -52,7 +52,7 @@ jobs:
           username: apikey
           password: ${{ secrets.SENDGRID_API_KEY }}
           subject: "🧪 Rapport de tests E2E - FreeWheel"
-          to: reddy.ntie.prestataire@rmcbfm.com
+          to: reddy.ntie.prestataire@rmcbfm.com, ntiereaddy17@gmail.com
           from: Freewheel Automation <reddy.ntie.prestataire@rmcbfm.com>
           body: |
             Bonjour,
