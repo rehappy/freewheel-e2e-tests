@@ -13,4 +13,5 @@ When("je me connecte avec des identifiants valides", () => {
 Then("je suis redirigé vers le tableau de bord", () => {
  // cy.url().should("include", "/app/515295/dashboard");
  // cy.contains("Dashboard").should("exist");
+ cy.screenshot('dashboard-apres-connexion', { capture: 'viewport' });
 });

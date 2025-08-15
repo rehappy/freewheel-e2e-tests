@@ -15,6 +15,12 @@ module.exports = defineConfig({
       
     },
     specPattern: "cypress/e2e/features/**/*.feature",
-    supportFile: "cypress/support/e2e.js"
+    supportFile: "cypress/support/e2e.js",
+    
+    env: {
+      "cypress-cucumber-preprocessor": {
+        stepDefinitions: "cypress/support/step_definitions",
+      }
+    }
   },
 });
